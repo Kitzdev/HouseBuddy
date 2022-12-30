@@ -1,4 +1,9 @@
-RewriteEngine on
-RewriteCond %{REQUEST_FILENAME} !-f
+# If there is no index file, then we should not give any file to the user.
+Options -Indexes
+Options -Multiviews
+RewriteEngine On
+# Ignore any directory that has the same name with the url.
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^.*$ /index.php [L,QSA]
+# Ignore any directory that has the same name with the url.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ public/index.php?url=$1 [L]
