@@ -1,4 +1,4 @@
-# ROUTING
+# Routing
     This app has 2 main routing:
 
     1. Route to serve content.
@@ -17,7 +17,7 @@
     We also have API versioning system.  We define the API version
     right after the /api, for example: https://{DOMAIN}/api/v1.
 
-    Our API format: v{version number}.
+    Our API version format: v{version number}, for example: v1, v2, ....
 
 
 # Application Version
