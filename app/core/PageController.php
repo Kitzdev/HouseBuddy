@@ -1,6 +1,6 @@
 <?php
 
-abstract class PageController
+abstract class PageController extends Controller
 {
     abstract function index();
 

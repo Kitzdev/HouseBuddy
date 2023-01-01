@@ -1,5 +1,5 @@
 <?php
-class House extends PageController {
+class HouseController extends PageController {
     public function index() {
     }
 }
