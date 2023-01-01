@@ -1,14 +1,11 @@
 <?php
-namespace controller;
 
-use APIController;
-use model\House as HouseModel;
-
-class House extends APIController
+class HouseController extends APIController
 {
     private HouseModel $model;
     public function __construct()
     {
+        require_once __DIR__."/../../../model/HouseModel.php";
         $this->model = new HouseModel();
     }
 
@@ -26,13 +23,12 @@ class House extends APIController
 
     function read($mode = "")
     {
-        var_dump($mode);
         if ($mode == "address") {
-            echo "read address";
+            return $this->model->getAllHouseAddress();
         } else if (!empty($mode)) {
-            echo "read specific";
+            return $this->model->getSpecificHouse($mode);
         } else {
-            echo "read house";
+            return $this->model->getAllHouse();
         }
     }
 
