@@ -2,9 +2,9 @@
 
 class Home extends PageController
 {
-
     function index()
     {
-        // TODO: Implement index() method.
+        $data['title'] = "Home";
+        $this->view('home/home', $data);
     }
 }
