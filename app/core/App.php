@@ -2,9 +2,11 @@
 
 class App
 {
-    protected $controller = "Home";
-    protected $method = "index";
-    protected $params = [];
+    protected PageController $controller;
+    protected string $method = "index";
+    protected array $params = [];
+
+    const DEFAULT_CONTROLLER = "Home";
 
     public function __construct()
     {
@@ -13,12 +15,14 @@ class App
 
         // Set up the controller
         if (file_exists(__DIR__ . '/../controller/' . $url[0] . '.php')) {
-            $this->controller = $url[0];
+            require_once __DIR__ . '/../controller/' . $url[0] . '.php';
+            $this->controller = new $this->controller;
             unset($url[0]);
+        } else {
+            // Default Controller
+            require_once __DIR__ . '/../controller/' . self::DEFAULT_CONTROLLER . '.php';
+            $this->controller = new Home();
         }
-
-        require_once __DIR__ . '/../controller/' . $this->controller . '.php';
-        $this->controller = new $this->controller;
 
         // Set up the method
         if (isset($url[1])) {
@@ -28,7 +32,7 @@ class App
             }
         }
 
-        // Get data
+        // Get data from request URL.
         if (!empty($url)) {
             $this->params = array_values($url);
         }
@@ -36,13 +40,13 @@ class App
         return call_user_func_array([$this->controller, $this->method], $this->params);
     }
 
-    public function parseURL()
+    public function parseURL(): array
     {
         if (isset($_GET['url'])) {
             $url = rtrim($_GET['url'], '/');
             $url = filter_var($url, FILTER_SANITIZE_URL);
             return explode('/', $url);
         }
-        return "";
+        return [];
     }
 }
