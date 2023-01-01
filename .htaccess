@@ -6,4 +6,4 @@ RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-d
 # Ignore any directory that has the same name with the url.
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.*)$ public/index.php?url=$1 [L]
+RewriteRule ^(.*)$ index.php?url=$1 [L]
