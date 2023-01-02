@@ -21,14 +21,14 @@ class HouseModel
 
     public function getSpecificHouse($houseId)
     {
-        $this->database->query("SELECT model, address, price_per_month FROM $this->table WHERE id =:id");
+        $this->database->query("SELECT * FROM $this->table WHERE id =:id");
         $this->database->bind('id', $houseId, PDO::PARAM_STR);
         return $this->database->fetchSingle();
     }
 
     public function getAllHouse()
     {
-        $this->database->query("SELECT * FROM $this->table");
+        $this->database->query("SELECT id, model, address, price_per_month FROM $this->table");
         return $this->database->fetchAll();
     }
 
