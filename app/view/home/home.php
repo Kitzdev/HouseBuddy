@@ -21,12 +21,12 @@
                 <p class="text-muted">Set your must lovely homey house.</p>
             </div>
             <div class="d-flex flex-column gap-2">
-                <a href="#" class="btn btn-primary btn-lg">List Booking</a>
+                <a href="/booking" class="btn btn-primary btn-lg">List Booking</a>
                 <h4 class="fw-semibold mb-0">List Booking</h4>
                 <p class="text-muted">Get list of your dream houses.</p>
             </div>
             <div class="d-flex flex-column gap-2">
-                <a href="#" class="btn btn-primary btn-lg">Rent a House</a>
+                <a href="/booking/new" class="btn btn-primary btn-lg">Rent a House</a>
                 <h4 class="fw-semibold mb-0">Rent a House</h4>
                 <p class="text-muted">Get your dream house.</p>
             </div>

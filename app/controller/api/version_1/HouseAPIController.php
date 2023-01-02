@@ -28,7 +28,6 @@ class HouseAPIController extends APIController
                 return $this->model->getHouseByAddress($address);
             }
 
-            var_dump($this->model->getAllHouseAddress());
             return $this->model->getAllHouseAddress();
         } else if (!empty($mode)) {
             $houseId = $mode;

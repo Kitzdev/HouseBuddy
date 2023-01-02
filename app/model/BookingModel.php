@@ -82,7 +82,7 @@ class BookingModel
 
     public function getAllBooking()
     {
-        $this->database->query("SELECT customer_id, house_model, house_address, end_date FROM $this->table");
+        $this->database->query("SELECT booking_id, customer_id, house_model, house_address, end_date FROM $this->table");
         return $this->database->fetchAll();
     }
 

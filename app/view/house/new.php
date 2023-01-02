@@ -1,6 +1,6 @@
 <?php
 ?>
-<p class="text-center" style="margin: 25px 0;">Detail Rumah</p>
+<p class="text-center" style="margin: 25px 0;">Input New House</p>
 
 <div class="container bg-light">
     <div class="input-group mb-3">
@@ -38,14 +38,18 @@
         const formData = new FormData()
         formData.append('model', document.querySelector("#model").value)
         formData.append('address', document.querySelector("#address").value)
-        formData.append('price_per_month', document.querySelector("#price-per-monthg").value)
+        formData.append('price_per_month', document.querySelector("#price-per-month").value)
 
         fetch('/api/v1/house', {
             method: "POST",
             body: formData
-        }).then((response) => {
-                if (response.status === 200) {
+        })
+            .then((response) => response.json())
+            .then((response) => {
+                if (response) {
                     alert('Data berhasil dimasukkan')
+                } else {
+                    alert(response)
                 }
             }
         )
