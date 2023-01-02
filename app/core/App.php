@@ -20,12 +20,12 @@ class App
          */
 
         // API Request
-        if ($url[0] === "api") {
+        if (!empty($url) && $url[0] === "api") {
             $directory = self::API_VERSION_DIRECTORY[$url[1]];
             $url[2] = ucfirst($url[2]);
             require_once "APIController.php";
 
-            $controllerName = "$url[2]Controller";
+            $controllerName = "$url[2]APIController";
             if (file_exists(__DIR__ . '/../controller/api/' . "$directory/" . $controllerName . '.php')) {
                 require_once __DIR__ . '/../controller/api/' . "$directory/" . $controllerName . '.php';
                 $this->controller = new $controllerName;
@@ -60,7 +60,7 @@ class App
             return true;
         }
 
-        $url[0] = ucfirst($url[0]);
+        $url[0] = ucfirst($url[0] ?? "");
         require_once "PageController.php";
 
         $controllerName = "$url[0]Controller";

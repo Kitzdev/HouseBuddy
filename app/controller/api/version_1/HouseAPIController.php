@@ -1,6 +1,6 @@
 <?php
 
-class HouseController extends APIController
+class HouseAPIController extends APIController
 {
     private HouseModel $model;
     public function __construct()
@@ -28,6 +28,7 @@ class HouseController extends APIController
                 return $this->model->getHouseByAddress($address);
             }
 
+            var_dump($this->model->getAllHouseAddress());
             return $this->model->getAllHouseAddress();
         } else if (!empty($mode)) {
             $houseId = $mode;

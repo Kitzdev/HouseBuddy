@@ -1,6 +1,6 @@
 <?php
 
-class BookingController extends APIController
+class BookingAPIController extends APIController
 {
     private BookingModel $bookingModel;
 
