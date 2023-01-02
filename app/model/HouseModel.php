@@ -2,8 +2,8 @@
 
 class HouseModel
 {
-    private $table = "houses";
-    private $database;
+    private string $table = "houses";
+    private Database $database;
 
     const COLUMN_TYPE = [
         "id" => PDO::PARAM_NULL,
@@ -59,6 +59,29 @@ class HouseModel
         $this->database->bind('created_at', $data['created_at'], self::COLUMN_TYPE['created_at']);
         $this->database->execute();
 
+        if ($this->database->isError()) {
+            http_response_code(422);
+            return $this->createHouseErrorMessage();
+        }
+
         return $this->database->rowCount();
+    }
+
+    public function createHouseErrorMessage(): string
+    {
+        $errorCode = $this->database->getErrorCode();
+
+        $message = "";
+        if (!empty($errorCode)) {
+            switch ($errorCode) {
+                case 23505:
+                    $message = "Rumah dengan alamat yang dimasukkan sudah tersedia";
+                    break;
+                default:
+                    $message = "Terjadi kesalahan saat memasukkan data";
+            }
+        }
+
+        return $message;
     }
 }

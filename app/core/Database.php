@@ -9,6 +9,7 @@ class Database
 
     private $databaseHelper;
     private $statement;
+    private $exception;
 
     public function __construct()
     {
@@ -36,7 +37,13 @@ class Database
 
     public function execute()
     {
-        $this->statement->execute();
+        try {
+            $this->statement->execute();
+        } catch (PDOException $exception) {
+            $this->exception = $exception->getCode();
+        }
+
+        return $this;
     }
 
     public function fetchAll()
@@ -53,5 +60,15 @@ class Database
 
     public function rowCount() {
         return $this->statement->rowCount();
+    }
+
+    public function isError(): bool
+    {
+        return !empty($this->exception);
+    }
+
+    public function getErrorCode()
+    {
+        return $this->exception;
     }
 }

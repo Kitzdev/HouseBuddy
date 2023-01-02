@@ -18,7 +18,7 @@ class HouseController extends APIController
             'created_at' => date("Y-m-d H-i-s"),
         ];
 
-        $this->model->createHouse($data);
+        return $this->model->createHouse($data);
     }
 
     function read($mode = "")
