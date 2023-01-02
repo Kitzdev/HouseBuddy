@@ -51,13 +51,14 @@ class HouseModel
      */
     public function createHouse($data): mixed
     {
-        $query = "INSERT INTO {$this->table} (model, address, price_per_month, created_at) VALUES(:model, :address, :price_per_month, :created_at)";
-        $this->database->query($query);
-        $this->database->bind('model', $data['model'], self::COLUMN_TYPE['model']);
-        $this->database->bind('address', $data['address'], self::COLUMN_TYPE['address']);
-        $this->database->bind('price_per_month', $data['price_per_month'], self::COLUMN_TYPE['price_per_month']);
-        $this->database->bind('created_at', $data['created_at'], self::COLUMN_TYPE['created_at']);
-        $this->database->execute();
+        $query = "INSERT INTO {$this->table} (model, address, price_per_month, created_at) 
+                    VALUES(:model, :address, :price_per_month, :created_at)";
+        $this->database->query($query)
+            ->bind('model', $data['model'], self::COLUMN_TYPE['model'])
+            ->bind('address', $data['address'], self::COLUMN_TYPE['address'])
+            ->bind('price_per_month', $data['price_per_month'], self::COLUMN_TYPE['price_per_month'])
+            ->bind('created_at', $data['created_at'], self::COLUMN_TYPE['created_at'])
+            ->execute();
 
         if ($this->database->isError()) {
             http_response_code(422);
@@ -83,5 +84,33 @@ class HouseModel
         }
 
         return $message;
+    }
+
+    public function getHouseByAddress($address): string|array
+    {
+        $this->database->query("SELECT * FROM $this->table WHERE address = :address")
+            ->bind('address', $address, PDO::PARAM_STR);
+        $data = $this->database->fetchSingle();
+
+        if (empty($data)) {
+            http_response_code(422);
+            return "Rumah dengan alamat yang dimasukkan tidak tersedia";
+        }
+
+        return $data;
+    }
+
+    public function updateHouseRentedStatusbyAddress($houseAddress, bool $rentedStatus)
+    {
+        $this->database->query("UPDATE $this->table SET rented_status = :rented_status WHERE address = :address")
+            ->bind('rented_status',  intval($rentedStatus), PDO::PARAM_INT)
+            ->bind('address', $houseAddress, PDO::PARAM_STR)
+            ->execute();
+
+        if ($this->database->isError()) {
+            return "Gagal memperbarui status rumah";
+        }
+
+        return $this->database->rowCount();
     }
 }

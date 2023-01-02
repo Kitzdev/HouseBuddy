@@ -21,12 +21,17 @@ class HouseController extends APIController
         return $this->model->createHouse($data);
     }
 
-    function read($mode = "")
+    function read($mode = "", $address = "")
     {
         if ($mode == "address") {
+            if (!empty($address)) {
+                return $this->model->getHouseByAddress($address);
+            }
+
             return $this->model->getAllHouseAddress();
         } else if (!empty($mode)) {
-            return $this->model->getSpecificHouse($mode);
+            $houseId = $mode;
+            return $this->model->getSpecificHouse($houseId);
         } else {
             return $this->model->getAllHouse();
         }
