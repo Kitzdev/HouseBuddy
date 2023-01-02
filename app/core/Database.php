@@ -28,11 +28,13 @@ class Database
     public function query($query)
     {
         $this->statement = $this->databaseHelper->prepare($query);
+        return $this;
     }
 
     public function bind($parameter, $value, $type = null)
     {
         $this->statement->bindValue($parameter, $value, $type);
+        return $this;
     }
 
     public function execute()
@@ -40,6 +42,7 @@ class Database
         try {
             $this->statement->execute();
         } catch (PDOException $exception) {
+            var_dump($exception->getMessage());
             $this->exception = $exception->getCode();
         }
 
