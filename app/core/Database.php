@@ -42,7 +42,6 @@ class Database
         try {
             $this->statement->execute();
         } catch (PDOException $exception) {
-            var_dump($exception->getMessage());
             $this->exception = $exception->getCode();
         }
 

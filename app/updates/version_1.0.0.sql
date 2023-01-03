@@ -35,7 +35,7 @@ CREATE FUNCTION check_booking_customer_id() RETURNS TRIGGER
 AS
 $FUNCTION$
 BEGIN
-    IF LENGTH(NEW.customer_id) < 16 THEN
+    IF LENGTH(NEW.customer_id) = 16 THEN
         RAISE EXCEPTION 'Customer ID must has 16 digits length';
     END IF;
     RETURN NEW;

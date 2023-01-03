@@ -22,7 +22,7 @@ $bookingData = $bookingController->read();
             <th scope="row"><?php echo $bookingDatum['customer_id']; ?></th>
             <td><?php echo $bookingDatum['house_model']; ?></td>
             <td><?php echo $bookingDatum['house_address']; ?></td>
-            <td>Rp. <?php echo $bookingDatum['end_date']; ?></td>
+            <td><?php echo $bookingDatum['end_date']; ?></td>
             <td><a href="/booking/detail/<?php echo $bookingDatum['booking_id'];?>" class="btn btn-primary btn-lg">Detail Booking</a></td>
         </tr>
     <?php endforeach; ?>

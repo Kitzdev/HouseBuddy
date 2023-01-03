@@ -13,6 +13,8 @@ $addressData = $houseController->read("address");
             <span class="input-group-text" id="inputGroup-sizing-default">Customer ID</span>
         </div>
         <input type="text" class="form-control" aria-label="Id" id="customer-id"
+               pattern="[0-9]{16}"
+               title="Format customer ID harus sesuai dengan NIK KTP"
                placeholder="Customer ID"
                aria-describedby="inputGroup-sizing-default">
     </div>
@@ -43,9 +45,14 @@ $addressData = $houseController->read("address");
 
     saveButton.addEventListener('click', function () {
         const formData = new FormData()
-        formData.append('customer_id', document.querySelector("#customer-id").value)
-        formData.append('house_address', document.querySelector("#address").value)
-        formData.append('duration', document.querySelector("#duration").value)
+
+        const customerId = document.querySelector("#customer-id").value
+        const houseAddress = document.querySelector("#address").value
+        const duration = document.querySelector("#duration").value
+
+        formData.append('customer_id', customerId)
+        formData.append('house_address', houseAddress)
+        formData.append('duration', duration)
 
         fetch('/api/v1/booking/', {
             method: "POST",
@@ -53,7 +60,7 @@ $addressData = $houseController->read("address");
         })
             .then((response) => response.json())
             .then((response) => {
-                    if (response) {
+                    if (response === 1) {
                         alert('Data berhasil dimasukkan')
                     } else {
                         alert(response)

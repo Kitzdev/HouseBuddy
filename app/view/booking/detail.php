@@ -41,7 +41,7 @@ $bookingData = $bookingController->read($data['booking_id']);
             <span class="input-group-text" id="inputGroup-sizing-default">House Model</span>
         </div>
         <input type="text" class="form-control" aria-label="Price / Month" readonly
-               placeholder="Rp. <?php echo $bookingData['house_model']; ?>"
+               placeholder="<?php echo $bookingData['house_model']; ?>"
                aria-describedby="inputGroup-sizing-default">
     </div>
     <div class="input-group mb-3">

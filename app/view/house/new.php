@@ -36,9 +36,29 @@
 
     saveButton.addEventListener('click', function () {
         const formData = new FormData()
-        formData.append('model', document.querySelector("#model").value)
-        formData.append('address', document.querySelector("#address").value)
-        formData.append('price_per_month', document.querySelector("#price-per-month").value)
+
+        const modelValue = document.querySelector("#model").value;
+        const addressValue = document.querySelector("#address").value
+        const pricePerMonthValue = document.querySelector("#price-per-month").value
+
+        if (modelValue.length === 0) {
+            alert('Silakan masukkan model terlebih dahulu')
+            return;
+        }
+
+        if (addressValue.length === 0) {
+            alert('Silakan masukkan alamat / address terlebih dahulu')
+            return;
+        }
+
+        if (pricePerMonthValue.length === 0) {
+            alert('Silakan masukkan price / month terlebih dahulu')
+            return;
+        }
+
+        formData.append('model', modelValue)
+        formData.append('address', addressValue)
+        formData.append('price_per_month', pricePerMonthValue)
 
         fetch('/api/v1/house', {
             method: "POST",

@@ -15,6 +15,13 @@ class BookingAPIController extends APIController
         require_once __DIR__ . "/../../../model/HouseModel.php";
         $houseModel = new HouseModel();
 
+        if (!preg_match_all('/[1-9][0-9][0-7][0-9][0-6][0-9][0-3][0-9][0-1][0-2][0-9][0-9][0-9][0-9][0-9][0-9]/',
+            $_POST['customer_id'])
+        ) {
+            http_response_code(422);
+            return "Customer Id harus sesuai dengan format NIK KTP";
+        }
+
         // Check if customer already booked a house.
         $bookingDataByCustomerId = $this->bookingModel->getBookingByCustomerId($_POST['customer_id']);
 
@@ -35,6 +42,12 @@ class BookingAPIController extends APIController
         if ($houseData['rented_status']) {
             http_response_code(422);
             return "Rumah dengan alamat {$houseData['address']} sudah di-booking";
+        }
+
+        // Check if house is already rented or not
+        if (empty($_POST['duration'])) {
+            http_response_code(422);
+            return "Durasi booking diperlukan";
         }
 
         $date = new DateTime();
